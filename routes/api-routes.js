@@ -16,8 +16,8 @@ router.get("/api/workouts", (req, res) => {
 });
 
 // Create the post route for /api/workouts/
-router.post("/api/workouts", ({ body }, res) => {
-  Workout.create(body)
+router.post("/api/workouts", (req, res) => {
+  Workout.create({})
     .then(dbWorkout => {
       res.json(dbWorkout);
     })
@@ -28,12 +28,24 @@ router.post("/api/workouts", ({ body }, res) => {
 
 // Create the get route for /api/workouts/range
 router.get("/api/workouts/range", (req, res) => {
-
+  Workout.find({}).limit(10)
+  .then(dbWorkout => {
+    res.json(dbWorkout);
+  })
+  .catch(err => {
+    res.json(err);
+  });
 });
 
 // Create the put route for the /api/workouts/:id
-router.put("/api/workouts/id", (req, res) => {
-
+router.put("/api/workouts/:id", ({ body, params}, res) => {
+  Workout.findOneAndUpdate(params.id, { $push: {exercises: body}}, {new: true})
+  .then(dbWorkout => {
+    res.json(dbWorkout);
+  })
+  .catch(err => {
+    res.json(err);
+  });
 });
 
 module.exports = router;
