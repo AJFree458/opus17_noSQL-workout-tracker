@@ -9,25 +9,25 @@ const db = require("../models");
 // Route for main page
 router.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/index.html"))
-  .catch(err => {
-    res.json(err);
-  });
+  // .catch(err => {
+  //   res.json(err);
+  // });
 });
   
 // Route for stats page
 router.get("/stats", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/stats.html"))
-  .catch(err => {
-    res.json(err);
-  });
+  // .catch(err => {
+  //   res.json(err);
+  // });
 });
 
 // Route for exercise page
 router.get("/exercise", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/exercise.html"))
-  .catch(err => {
-    res.json(err);
-  });
+  // .catch(err => {
+  //   res.json(err);
+  // });
 });
 
 // Try to add in error handling for the routes
