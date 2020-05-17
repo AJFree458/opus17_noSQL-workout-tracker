@@ -11,7 +11,7 @@ router.get("/api/workouts", (req, res) => {
     res.json(dbWorkout);
   })
   .catch(err => {
-    res.json(err);
+    res.status(400).json(err);
   });
 });
 
@@ -22,7 +22,7 @@ router.post("/api/workouts", (req, res) => {
       res.json(dbWorkout);
     })
     .catch(err => {
-      res.json(err);
+      res.status(400).json(err);
     });
 });
 
@@ -33,18 +33,22 @@ router.get("/api/workouts/range", (req, res) => {
     res.json(dbWorkout);
   })
   .catch(err => {
-    res.json(err);
+    res.status(400).json(err);
   });
 });
 
 // Create the put route for the /api/workouts/:id
-router.put("/api/workouts/:id", ({ body, params}, res) => {
-  Workout.findOneAndUpdate(params.id, { $push: {exercises: body}}, {new: true})
+router.put("/api/workouts/:id", (req, res) => {
+  Workout.findOneAndUpdate(
+    { _id: req.params.id }, 
+    { $push: { exercises: req.body } }, 
+    { new: true }
+  )
   .then(dbWorkout => {
     res.json(dbWorkout);
   })
   .catch(err => {
-    res.json(err);
+    res.status(400).json(err);
   });
 });
 
